@@ -9,13 +9,21 @@
 class Sorter
 {
 private:
+	/// Data Members
+	SortingOption sortType;
+
 
 	/// Private Functions
 private:
 	void ShowTitle();
 	void ShowMenu();
+	void GetUserInputMode();
+
+	/// UI Configurations Functions
 	void SetColor(Color color);
 	void ResetColor();
+	void PrintWarning(std::string msg);
+	void PrintError(std::string msg);
 
 
 public:
