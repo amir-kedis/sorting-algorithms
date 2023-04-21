@@ -1,4 +1,6 @@
 #include "Sorter.h"
+#include <stdlib.h>
+#include <time.h>
 
 /// Private Functions
 void Sorter::ShowTitle()
@@ -56,6 +58,19 @@ void Sorter::GetUserInputMode()
 	}
 }
 
+void Sorter::PrintArr()
+{
+	if (!sortingArr)
+		return;
+
+	for (unsigned int i = 0; i < sortingArrSize; i++)
+	{
+		std::cout << sortingArr[i] << " ";
+	}
+
+	std::cout << std::endl;
+}
+
 /// UI Configurations Functions
 void Sorter::SetColor(Color color)
 {
@@ -82,15 +97,65 @@ void Sorter::PrintError(std::string msg)
 	std::cout << msg << std::endl;
 	ResetColor();
 }
+/// Array Setup Function
+int Sorter::Random(int min, int max)
+{
+	return rand() % (max - min + 1) + min;
+}
+
+void Sorter::CreateRandomArr(unsigned int size)
+{
+	if (sortingArr)
+		DeleteArr();
+
+	sortingArr = new int[size];
+	sortingArrSize = size;
+
+	for (unsigned int i = 0; i < size; i++)
+	{
+		sortingArr[i] = Random(MIN_NUM, MAX_NUM);
+	}
+}
+
+void Sorter::CreateSortedArr(unsigned int size)
+{
+	if (sortingArr)
+		DeleteArr();
+
+	sortingArr = new int[size];
+	sortingArrSize = size;
+
+	for (unsigned int i = 0; i < size; i++)
+	{
+		sortingArr[i] = i * 2;
+	}
+
+}
+
+void Sorter::DeleteArr()
+{
+	if (sortingArr)
+	{
+		delete sortingArr;
+		sortingArr = NULL;
+		sortingArrSize = 0;
+	}
+}
 
 /// Constructor and Destructor
 Sorter::Sorter()
 {
 	sortType = OPTION_SIZE;
+	sortingArr = NULL;
+	sortingArrSize = 0;
+
+	srand(static_cast<unsigned int>(time(0))); // seed the c++ rand
+
 }
 
 Sorter::~Sorter()
 {
+	DeleteArr();
 }
 
 
@@ -105,6 +170,9 @@ void Sorter::Start()
 
 	if (sortType == EXIT)
 		return;
+
+
+	PrintArr();
 
 
 }
