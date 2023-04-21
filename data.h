@@ -19,3 +19,15 @@ enum Color
 	// not an actual color
 	COLOR_SIZE
 };
+
+// Current Sorting Options
+enum SortingOption
+{
+	SELECTION_SORT = 1,
+	INSERTION_SORT,
+	HEAP_SORT,
+	SHELL_SORT,
+	EXIT,
+	// not an actual option
+	OPTION_SIZE
+};
