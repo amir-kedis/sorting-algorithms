@@ -22,8 +22,9 @@ private:
 private:
 	/// SortingAlgo
 	void SelectionSrot();
-	void InertionSort();
+	void InsertionSort();
 	void HeapSort();
+	void ShellSort();
 
 
 	/// Heap Sort Functions
@@ -38,8 +39,10 @@ private:
 	void PrintArrAtStart();
 	void PrintArrAtEnd();
 	void SelectionSortPassPrint(int passCount, int minI);
+	void InsetionSortPassPrint(int key, int j);
 	void HeapSortPrintMaxHeap();
 	void HeapSortPassPrint(int passCount);
+	void ShellSortPassPrint(int gap, int passCount);
 
 	/// UI Configurations Functions
 	void SetColor(Color color);

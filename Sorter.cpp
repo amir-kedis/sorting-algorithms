@@ -13,7 +13,7 @@ void Sorter::SelectionSrot()
 	{
 		// Find the Min Element in the unsorted SortingArr[i...SortingArrSize-1]
 
-		// Assume the the min is the first element
+		// Assume the min is the first element
 		int jMin = i;
 		// Test Against Elements After i to find the smallest
 		for (j = i + 1; j < sortingArrSize; j++)
@@ -36,8 +36,27 @@ void Sorter::SelectionSrot()
 	}
 }
 
-void Sorter::InertionSort()
+void Sorter::InsertionSort()
 {
+	// for each element of the array
+	for (int j = 1; j < sortingArrSize; j++)
+	{
+		// get the key
+		int key = sortingArr[j];
+		int i = j - 1;
+
+		InsetionSortPassPrint(i, j);
+
+		// shift the key until it's in its correct postilion
+		while (i >= 0 && sortingArr[i] > key)
+		{
+			sortingArr[i + 1] = sortingArr[i];
+			i = i - 1;
+		}
+
+		sortingArr[i + 1] = key;
+
+	}
 }
 
 void Sorter::HeapSort()
@@ -60,6 +79,29 @@ void Sorter::HeapSort()
 
 		// puts the maximum of the remaining back at the beginning
 		Heapify(i, 0);
+
+	}
+}
+
+void Sorter::ShellSort()
+{
+	// Start with the largest gap and work down to gap of 1
+	for (int gap = 10; gap > 0; gap /= 2)
+	{
+
+		// Do a gapped insertion sort for each gap
+		for (int offset = gap; offset < sortingArrSize; offset++)
+		{
+			int temp = sortingArr[offset];
+			int j;
+			for (j = offset; j >= gap && sortingArr[j - gap] > temp; j -= gap)
+			{
+				sortingArr[j] = sortingArr[j - gap];
+			}
+			sortingArr[j] = temp;
+		}
+		ShellSortPassPrint(gap, gap);
+
 
 	}
 }
@@ -205,6 +247,36 @@ void Sorter::SelectionSortPassPrint(int passCount, int minI)
 	ResetColor();
 }
 
+void Sorter::InsetionSortPassPrint(int key, int j)
+{
+	SetColor(GREY);
+	std::cout << "After " << std::setprecision(2) << std::setfill('0') << std::setw(2) << j << " Pass: ";
+
+	for (unsigned int i = 0; i < sortingArrSize; i++)
+	{
+
+		if (i < j)
+		{
+			SetColor(DARK_YELLOW);
+		}
+		else {
+			SetColor(BRIGHT_WHITE);
+		}
+
+		if (i == key + 1)
+		{
+			SetColor(BRIGHT_BLUE);
+		}
+
+
+		std::cout << sortingArr[i] << " ";
+	}
+
+	std::cout << std::endl;
+	ResetColor();
+
+}
+
 void Sorter::HeapSortPrintMaxHeap()
 {
 	SetColor(GREY);
@@ -229,6 +301,30 @@ void Sorter::HeapSortPassPrint(int passCount)
 		else if (i > passCount)
 		{
 			SetColor(DARK_YELLOW);
+		}
+		else
+		{
+			SetColor(BRIGHT_WHITE);
+		}
+
+		std::cout << sortingArr[i] << " ";
+	}
+
+	std::cout << std::endl;
+	ResetColor();
+
+}
+
+void Sorter::ShellSortPassPrint(int gap, int passCount)
+{
+	SetColor(GREY);
+	std::cout << "After K= " << std::setprecision(2) << std::setfill('0') << std::setw(2) << passCount << " Pass: ";
+
+	for (unsigned int i = 0; i < sortingArrSize; i++)
+	{
+		if (i % gap == 0)
+		{
+			SetColor(BRIGHT_BLUE);
 		}
 		else
 		{
@@ -366,14 +462,24 @@ void Sorter::Start()
 	switch (sortType)
 	{
 	case SELECTION_SORT:
+		SetColor(BRIGHT_GREEN);
+		std::cout << "Running Selection Sort...\n";
 		SelectionSrot();
 		break;
 	case INSERTION_SORT:
+		SetColor(BRIGHT_GREEN);
+		std::cout << "Running Insertion Sort...\n";
+		InsertionSort();
 		break;
 	case HEAP_SORT:
+		SetColor(BRIGHT_GREEN);
+		std::cout << "Running Heap Sort...\n";
 		HeapSort();
 		break;
 	case SHELL_SORT:
+		SetColor(BRIGHT_GREEN);
+		std::cout << "Running Shell Sort...\n";
+		ShellSort();
 		break;
 	case EXIT:
 		break;
@@ -386,4 +492,8 @@ void Sorter::Start()
 
 	PrintArrAtEnd();
 
+	system("pause");
+	sortType = OPTION_SIZE;
+	system("cls");
+	Start();
 }
