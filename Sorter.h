@@ -23,6 +23,12 @@ private:
 	/// SortingAlgo
 	void SelectionSrot();
 	void InertionSort();
+	void HeapSort();
+
+
+	/// Heap Sort Functions
+	// heapify the subtree rooted at index i
+	void Heapify(int n, int i);
 
 	/// I/O
 	void ShowTitle();
@@ -32,6 +38,8 @@ private:
 	void PrintArrAtStart();
 	void PrintArrAtEnd();
 	void SelectionSortPassPrint(int passCount, int minI);
+	void HeapSortPrintMaxHeap();
+	void HeapSortPassPrint(int passCount);
 
 	/// UI Configurations Functions
 	void SetColor(Color color);

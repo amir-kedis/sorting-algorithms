@@ -40,6 +40,56 @@ void Sorter::InertionSort()
 {
 }
 
+void Sorter::HeapSort()
+{
+	// Build Max Heap -- rearrange array
+	for (int i = sortingArrSize / 2 - 1; i >= 0; i--)
+	{
+		Heapify(sortingArrSize, i);
+	}
+
+	HeapSortPrintMaxHeap();
+
+	// extract max from the begin and put at the end
+	for (int i = sortingArrSize - 1; i >= 0; i--)
+	{
+		HeapSortPassPrint(i);
+
+		// move largest element at its Index from the end
+		Swap(sortingArr[0], sortingArr[i]);
+
+		// puts the maximum of the remaining back at the beginning
+		Heapify(i, 0);
+
+	}
+}
+
+/// Heap Sort Functions
+
+
+
+void Sorter::Heapify(int n, int i)
+{
+	int largest = i;
+	int l = 2 * i + 1; // 0 based
+	int r = 2 * i + 2; // 0 based
+
+	// Get the maximum
+	if (l < n && sortingArr[l] > sortingArr[largest])
+		largest = l;
+
+	if (r < n && sortingArr[r] > sortingArr[largest])
+		largest = r;
+
+	if (largest != i)
+	{
+		Swap(sortingArr[i], sortingArr[largest]);
+
+		// Recursively heapify the subtree
+		Heapify(n, largest);
+	}
+}
+
 /// Private Functions
 void Sorter::ShowTitle()
 {
@@ -153,6 +203,44 @@ void Sorter::SelectionSortPassPrint(int passCount, int minI)
 
 	std::cout << std::endl;
 	ResetColor();
+}
+
+void Sorter::HeapSortPrintMaxHeap()
+{
+	SetColor(GREY);
+	std::cout << "After MaxHeapfing the Array:\n";
+	SetColor(BRIGHT_BLUE);
+	PrintArr();
+	ResetColor();
+
+}
+
+void Sorter::HeapSortPassPrint(int passCount)
+{
+	SetColor(GREY);
+	std::cout << "After " << std::setprecision(2) << std::setfill('0') << std::setw(2) << sortingArrSize - passCount << " Pass: ";
+
+	for (unsigned int i = 0; i < sortingArrSize; i++)
+	{
+		if (i == 0)
+		{
+			SetColor(BRIGHT_BLUE);
+		}
+		else if (i > passCount)
+		{
+			SetColor(DARK_YELLOW);
+		}
+		else
+		{
+			SetColor(BRIGHT_WHITE);
+		}
+
+		std::cout << sortingArr[i] << " ";
+	}
+
+	std::cout << std::endl;
+	ResetColor();
+
 }
 
 /// UI Configurations Functions
@@ -283,6 +371,7 @@ void Sorter::Start()
 	case INSERTION_SORT:
 		break;
 	case HEAP_SORT:
+		HeapSort();
 		break;
 	case SHELL_SORT:
 		break;
