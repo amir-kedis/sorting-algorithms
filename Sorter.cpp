@@ -1,6 +1,44 @@
 #include "Sorter.h"
 #include <stdlib.h>
 #include <time.h>
+#include <iomanip>
+
+/// Sorting Algorithms
+void Sorter::SelectionSrot()
+{
+	int i, j;
+
+	// Advance the position through the entire array
+	for (i = 0; i < sortingArrSize - 1; i++)
+	{
+		// Find the Min Element in the unsorted SortingArr[i...SortingArrSize-1]
+
+		// Assume the the min is the first element
+		int jMin = i;
+		// Test Against Elements After i to find the smallest
+		for (j = i + 1; j < sortingArrSize; j++)
+		{
+			// if element is less than jMin then it is the new min
+			if (sortingArr[j] < sortingArr[jMin])
+			{
+				jMin = j;
+			}
+		}
+
+		SelectionSortPassPrint(i + 0, jMin);
+
+
+		// swap cur i and the min
+		if (jMin != i)
+		{
+			Swap(sortingArr[i], sortingArr[jMin]);
+		}
+	}
+}
+
+void Sorter::InertionSort()
+{
+}
 
 /// Private Functions
 void Sorter::ShowTitle()
@@ -69,6 +107,52 @@ void Sorter::PrintArr()
 	}
 
 	std::cout << std::endl;
+}
+
+void Sorter::PrintArrAtStart()
+{
+	SetColor(GREY);
+	std::cout << "At the Start the random Array:\n";
+	SetColor(BRIGHT_WHITE);
+	PrintArr();
+	ResetColor();
+
+}
+
+void Sorter::PrintArrAtEnd()
+{
+	SetColor(GREY);
+	std::cout << "At the End the Sorted Array (Considered a Pass) :\n";
+	SetColor(DARK_YELLOW);
+	PrintArr();
+	ResetColor();
+
+}
+
+void Sorter::SelectionSortPassPrint(int passCount, int minI)
+{
+	SetColor(GREY);
+	std::cout << "After " << std::setprecision(2) << std::setfill('0') << std::setw(2) << passCount << " Pass: ";
+
+	for (unsigned int i = 0; i < sortingArrSize; i++)
+	{
+		if (i < passCount)
+		{
+			SetColor(DARK_YELLOW);
+		}
+		else if (i == passCount || i == minI)
+		{
+			SetColor(BRIGHT_BLUE);
+		}
+		else {
+			SetColor(BRIGHT_WHITE);
+		}
+
+		std::cout << sortingArr[i] << " ";
+	}
+
+	std::cout << std::endl;
+	ResetColor();
 }
 
 /// UI Configurations Functions
@@ -151,6 +235,13 @@ void Sorter::DeleteArr()
 	}
 }
 
+void Sorter::Swap(int& a, int& b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
 /// Constructor and Destructor
 Sorter::Sorter()
 {
@@ -180,6 +271,30 @@ void Sorter::Start()
 	if (sortType == EXIT)
 		return;
 
+	CreateRandomArr(15);
 
+	PrintArrAtStart();
+
+	switch (sortType)
+	{
+	case SELECTION_SORT:
+		SelectionSrot();
+		break;
+	case INSERTION_SORT:
+		break;
+	case HEAP_SORT:
+		break;
+	case SHELL_SORT:
+		break;
+	case EXIT:
+		break;
+	case OPTION_SIZE:
+		break;
+	default:
+		SelectionSrot();
+		break;
+	}
+
+	PrintArrAtEnd();
 
 }

@@ -20,10 +20,18 @@ private:
 
 	/// Private Functions
 private:
+	/// SortingAlgo
+	void SelectionSrot();
+	void InertionSort();
+
+	/// I/O
 	void ShowTitle();
 	void ShowMenu();
 	void GetUserInputMode();
 	void PrintArr();
+	void PrintArrAtStart();
+	void PrintArrAtEnd();
+	void SelectionSortPassPrint(int passCount, int minI);
 
 	/// UI Configurations Functions
 	void SetColor(Color color);
@@ -36,6 +44,7 @@ private:
 	void CreateRandomArr(unsigned int size);
 	void CreateSortedArr(unsigned int size, bool isAscending);
 	void DeleteArr();
+	void Swap(int& a, int& b);
 
 
 public:
