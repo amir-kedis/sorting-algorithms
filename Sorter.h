@@ -34,7 +34,7 @@ private:
 	/// Array Setup Function
 	int Random(int min, int max);
 	void CreateRandomArr(unsigned int size);
-	void CreateSortedArr(unsigned int size);
+	void CreateSortedArr(unsigned int size, bool isAscending);
 	void DeleteArr();
 
 

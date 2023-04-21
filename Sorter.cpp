@@ -117,7 +117,7 @@ void Sorter::CreateRandomArr(unsigned int size)
 	}
 }
 
-void Sorter::CreateSortedArr(unsigned int size)
+void Sorter::CreateSortedArr(unsigned int size, bool isAscending)
 {
 	if (sortingArr)
 		DeleteArr();
@@ -125,10 +125,19 @@ void Sorter::CreateSortedArr(unsigned int size)
 	sortingArr = new int[size];
 	sortingArrSize = size;
 
-	for (unsigned int i = 0; i < size; i++)
+	if (isAscending)
 	{
-		sortingArr[i] = i * 2;
+
+		for (unsigned int i = 0; i < size; i++)
+			sortingArr[i] = i;
 	}
+	else
+	{
+		for (unsigned int i = 0; i < size; i++)
+			sortingArr[i] = (size - i);
+
+	}
+
 
 }
 
@@ -171,8 +180,6 @@ void Sorter::Start()
 	if (sortType == EXIT)
 		return;
 
-
-	PrintArr();
 
 
 }
