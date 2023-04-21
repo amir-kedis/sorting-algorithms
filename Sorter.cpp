@@ -32,10 +32,10 @@ void Sorter::ShowMenu()
 void Sorter::GetUserInputMode()
 {
 	std::cout << "Enter number of algorithm ex (2) for Insertion Sort: ";
-	int rawInput;
+	char rawInput;
 	std::cin >> rawInput;
 
-	switch (rawInput)
+	switch (static_cast<int>(rawInput - '0'))
 	{
 	case SELECTION_SORT:
 		sortType = SELECTION_SORT;
