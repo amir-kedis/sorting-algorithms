@@ -250,7 +250,7 @@ void Sorter::SelectionSortPassPrint(int passCount, int minI)
 void Sorter::InsetionSortPassPrint(int key, int j)
 {
 	SetColor(GREY);
-	std::cout << "After " << std::setprecision(2) << std::setfill('0') << std::setw(2) << j << " Pass: ";
+	std::cout << "After " << std::setprecision(2) << std::setfill('0') << std::setw(2) << j - 1 << " Pass: ";
 
 	for (unsigned int i = 0; i < sortingArrSize; i++)
 	{
