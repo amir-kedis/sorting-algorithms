@@ -25,7 +25,8 @@ private:
 	void InsertionSort();
 	void HeapSort();
 	void ShellSort();
-
+	void MergeSort();
+	void Mergelists(int l ,int h ,int mid);
 
 	/// Heap Sort Functions
 	// heapify the subtree rooted at index i
@@ -43,7 +44,8 @@ private:
 	void HeapSortPrintMaxHeap();
 	void HeapSortPassPrint(int passCount);
 	void ShellSortPassPrint(int gap, int passCount);
-
+	void MergeSortpassprint(int i, int p,int c);
+	void Quicksort();
 	/// UI Configurations Functions
 	void SetColor(Color color);
 	void ResetColor();

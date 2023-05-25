@@ -27,6 +27,7 @@ enum SortingOption
 	INSERTION_SORT,
 	HEAP_SORT,
 	SHELL_SORT,
+	MERGE_SORT,
 	EXIT,
 	// not an actual option
 	OPTION_SIZE
