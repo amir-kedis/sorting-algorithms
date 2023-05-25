@@ -106,6 +106,62 @@ void Sorter::ShellSort()
 	}
 }
 
+void Sorter::MergeSort()
+{
+	int p, l, h, mid, i,counter=0;
+	for (p = 2;p <= sortingArrSize;p *= 2)
+	{
+		for (i = 0;i < sortingArrSize - p+1;i += p)
+		{
+			counter++;
+			l = i;
+			h = i + p - 1;
+			mid = (l + h) / 2;
+			Mergelists(l, h, mid);
+			MergeSortpassprint(i, p, counter);
+		}
+		if (sortingArrSize - i > p / 2)
+		{
+			l = i;
+			h = i + p - 1;
+			mid = (l + h) / 2;
+			Mergelists(l, sortingArrSize - 1,mid);
+		}
+		MergeSortpassprint(i, p, counter);
+	}
+	if (p / 2 < sortingArrSize)
+	{
+		Mergelists(0,  sortingArrSize - 1,p/2 -1);
+	}
+}
+
+void Sorter::Mergelists(int l, int h, int mid)
+{
+	int i = l, j = mid+1;
+	int k = 0;
+	int* temparr = new int[100];
+	while (i <= mid && j <= h)
+	{
+		if (sortingArr[i] <= sortingArr[j])
+			temparr[k++] = sortingArr[i++];
+		else
+			temparr[k++] = sortingArr[j++];
+
+	}
+	for (;i<=mid ;i++)
+		temparr[k++] = sortingArr[i];
+	for (;j <= h;j++)
+		temparr[k++] = sortingArr[j];
+	int o = l;
+	for (int y = 0;y < k;y++)
+	{
+		sortingArr[o] = temparr[y];
+		o++;
+	}
+	free(temparr);
+
+}
+
 /// Heap Sort Functions
 
 
@@ -154,7 +210,8 @@ void Sorter::ShowMenu()
 	std::cout << "2. Insertion Sort" << std::endl;
 	std::cout << "3. Heap Sort" << std::endl;
 	std::cout << "4. Shell Sort" << std::endl;
-	std::cout << "5. Exit" << std::endl;
+	std::cout << "5. Merge Sort" << std::endl;
+	std::cout << "6. Exit" << std::endl;
 
 	ResetColor();
 }
@@ -178,6 +235,9 @@ void Sorter::GetUserInputMode()
 		break;
 	case SHELL_SORT:
 		sortType = SHELL_SORT;
+		break;
+	case MERGE_SORT:
+		sortType = MERGE_SORT;
 		break;
 	case EXIT:
 		sortType = EXIT;
@@ -339,6 +399,34 @@ void Sorter::ShellSortPassPrint(int gap, int passCount)
 
 }
 
+void Sorter::MergeSortpassprint(int i, int p,int c)
+{
+	SetColor(GREY);
+	std::cout << "After K= " << std::setprecision(2) << std::setfill('0') << std::setw(2) << c << " Pass: ";
+
+	for (unsigned int in = 0; in < sortingArrSize; in++)
+	{
+		if (in >= i && in< p+i)
+		{
+			SetColor(BRIGHT_BLUE);
+		}
+		else
+		{
+			SetColor(BRIGHT_WHITE);
+		}
+
+		std::cout << sortingArr[in] << " ";
+	}
+
+	std::cout << std::endl;
+	ResetColor();
+
+}
+
+void Sorter::Quicksort()
+{
+}
+
 /// UI Configurations Functions
 void Sorter::SetColor(Color color)
 {
@@ -475,6 +563,11 @@ void Sorter::Start()
 		SetColor(BRIGHT_GREEN);
 		std::cout << "Running Heap Sort...\n";
 		HeapSort();
+		break;
+	case MERGE_SORT:
+		SetColor(BRIGHT_GREEN);
+		std::cout << "Running Merge Sort...\n";
+		MergeSort();
 		break;
 	case SHELL_SORT:
 		SetColor(BRIGHT_GREEN);
